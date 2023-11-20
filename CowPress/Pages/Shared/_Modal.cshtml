@@ -1,0 +1,18 @@
+<div class="modal-dialog modal-dialog-centered">
+  <form method="post" hx-post hx-page="CreatePost"
+            hx-page-handler="GenerateContent" hx-indicator="#generatingContentIndicator" hx-target="#content">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Generate blog post with AI</h5>
+    </div>
+    <div class="modal-body">
+            <label for="subject">Subject and details:</label>
+          <textarea type="text" id="subject" name="subject" rows="4" cols="80" required></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary"  id="generate-content-btn" data-bs-dismiss="modal">Generate content</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+  </form>
+</div>

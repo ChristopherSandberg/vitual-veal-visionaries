@@ -1,0 +1,19 @@
+@model CowPress.Pages.Post.BlogPostsModel
+
+@if (Model.BlogPosts.Count == 0)
+{
+    <p>No blog posts found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var post in Model.BlogPosts)
+        {
+            <li>
+                <h2><a asp-page="/post/viewpost" asp-route-id="@post.Id">@post.Title</a></h2>
+                <p>Author: @post.Author</p>
+                <p>Created at: @post.CreatedAt</p>
+            </li>
+        }
+    </ul>
+}

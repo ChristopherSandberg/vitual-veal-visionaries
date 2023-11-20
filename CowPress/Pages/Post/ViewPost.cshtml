@@ -1,0 +1,27 @@
+@page "/post/{id}"
+@model CowPress.Pages.Post.ViewPostModel
+
+<a href="/post">Back to all posts</a>
+@if (User?.Identity?.IsAuthenticated == true)
+{
+    <a href="/post/edit/@Model.BlogPost.Id" class="btn btn-primary float-right">Edit post</a>
+}
+
+<h1>@Model.BlogPost.Title</h1>
+
+
+<p style="white-space: pre-line;">@Model.BlogPost.Content</p>
+
+<p>Author: @Model.BlogPost.Author</p>
+
+<p>Created at: @Model.BlogPost.CreatedAt</p>
+
+<h2>Related Blogposts</h2>
+<ul>
+    @foreach (var post in Model.RelatedBlogPosts)
+    {
+        <li>
+            <a href="/post/@post.Id">@post.Title</a>
+        </li>
+    }
+</ul>

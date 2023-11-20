@@ -1,0 +1,17 @@
+@page "/post"
+@model CowPress.Pages.Post.BlogPostsModel
+
+<h1>Blog Posts</h1>
+
+@if (User?.Identity?.IsAuthenticated == true)
+{
+    <a href="/post/create" class="btn btn-primary float-right">Create Blog Post</a>
+}
+
+<form hx-page="BlogPosts" hx-page-handler="Search" hx-get hx-trigger="keyup delay:500ms" hx-target="#searchResults">
+    <input type="search" name="search" placeholder="Search blog posts..." />
+</form>
+
+<div id="searchResults">
+    <partial name="_BlogPostsPartial" model="Model" />
+</div>

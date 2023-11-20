@@ -1,0 +1,112 @@
+@page "/post/create"
+@model CowPress.Pages.Post.CreatePostModel
+
+<h1>Create a new blog post</h1>
+
+<form method="post" asp-action="Create">
+    @* TODO AI UI *@
+    @* <div>
+      <button 
+          hx-get
+          hx-page="CreatePost"
+          hx-page-handler="Modal"
+          hx-target="#modals-here" 
+          hx-trigger="click" 
+          data-bs-toggle="modal" 
+          data-bs-target="#modals-here"
+          class="btn btn-primary">Generate blog post</button>
+    </div> *@
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+        <em id="generatingContentIndicator" class="htmx-indicator">Generating content...</em>
+        <label for="content">Content:</label>
+        <textarea id="content" name="content" required></textarea>
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+    </div>
+    <button type="submit">Create</button>
+
+</form>
+
+
+
+<style>
+.htmx-indicator{
+        opacity:0;
+        transition: opacity 500ms ease-in;
+    }
+    .htmx-request .htmx-indicator{
+        opacity:1
+    }
+    .htmx-request.htmx-indicator{
+        opacity:1
+    }
+
+  .blogpost-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: border-color 0.2s ease-in-out;
+  }
+
+  .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  button:hover {
+    background-color: #0069d9;
+  }
+
+  #content {
+    width: 80%;
+    height: 600px;
+  }
+</style> 
+
+<div id="modals-here"
+    class="modal modal-blur fade"
+    style="display: none"
+    aria-hidden="false"
+    tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width: 80%;" role="document">
+        <div class="modal-content"></div>
+    </div>
+</div>
