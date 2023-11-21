@@ -40,7 +40,7 @@ public class ContentGenerator
 
         var embedding = returnValue.Value.Data.First().Embedding;
         
-        var embeddingList =  embedding.Span.ToArray().ToList();
+        var embeddingList = embedding.Span.ToArray().ToList();
         
         return embeddingList;
     }
