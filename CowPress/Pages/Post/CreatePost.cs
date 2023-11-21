@@ -51,8 +51,15 @@ public class CreatePostModel : PageModel
 
             _context.BlogPosts.Add(post);
             _context.SaveChanges();
-
-
+            
+            var embeddingDb = new Embedding()
+            {
+                Id = post.Id,
+                Vector = _contentGenerator.GenerateEmbedding(BlogPost.Content).ToArray()
+            };
+            _context.Embeddings.Add(embeddingDb);
+            _context.SaveChanges();
+            
             Response.Htmx(h => {
                 h.Redirect("/post")
                 .WithTrigger("deleted");

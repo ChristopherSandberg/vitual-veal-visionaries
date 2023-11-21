@@ -5,6 +5,7 @@ namespace CowPress.Pages.Post;
 
 public class ContentGenerator
 {
+    public const string DeploymentName = "gpt-4";
     public readonly OpenAIClient _openAIClient;
 
     public ContentGenerator(OpenAIClient openAIClient)
@@ -16,7 +17,7 @@ public class ContentGenerator
     {
         var chatCompletionsOptions = new ChatCompletionsOptions()
         {
-            DeploymentName = "gpt-4",
+            DeploymentName = DeploymentName,
             Messages =
             {
                 new ChatMessage(ChatRole.System, $"Create a blog post in 250 characters at most"),
@@ -31,10 +32,16 @@ public class ContentGenerator
         return firstResponseMessage;
     }
 
-    public async Task<IReadOnlyList<float>> GenerateEmbedding(string text)
+    public IReadOnlyList<float> GenerateEmbedding(string text)
     {
-        // TODO Generate embedding from the text
+        EmbeddingsOptions embeddingOptions = new EmbeddingsOptions("text-embedding-ada-002", new List<string> { text });
 
-        return await Task.FromResult(new List<float>());
+        var returnValue = _openAIClient.GetEmbeddings(embeddingOptions);
+
+        var embedding = returnValue.Value.Data.First().Embedding;
+        
+        var embeddingList =  embedding.Span.ToArray().ToList();
+        
+        return embeddingList;
     }
 }
