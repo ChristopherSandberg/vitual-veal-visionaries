@@ -5,19 +5,21 @@ namespace CowPress.Pages.Post;
 
 public class ContentGenerator
 {
-    public const string DeploymentName = "gpt-4";
-    public readonly OpenAIClient _openAIClient;
+    private const string ContentGenerationDeploymentName = "gpt-4";
+    private const string EmbeddingDeploymentName = "text-embedding-ada-002";
 
-    public ContentGenerator(OpenAIClient openAIClient)
+    private readonly OpenAIClient _openAiClient;
+
+    public ContentGenerator(OpenAIClient openAiClient)
     {
-        _openAIClient = openAIClient;
+        _openAiClient = openAiClient;
     }
 
     public async Task<string> GenerateContent(string subject)
     {
         var chatCompletionsOptions = new ChatCompletionsOptions()
         {
-            DeploymentName = DeploymentName,
+            DeploymentName = ContentGenerationDeploymentName,
             Messages =
             {
                 new ChatMessage(ChatRole.System, $"Create a blog post in 250 characters at most"),
@@ -26,22 +28,19 @@ public class ContentGenerator
             MaxTokens = 250
         };
 
-        Response<ChatCompletions> response = await _openAIClient.GetChatCompletionsAsync(chatCompletionsOptions);
+        Response<ChatCompletions> response = await _openAiClient.GetChatCompletionsAsync(chatCompletionsOptions);
 
         var firstResponseMessage = response.Value.Choices.First().Message.Content;
         return firstResponseMessage;
     }
 
-    public IReadOnlyList<float> GenerateEmbedding(string text)
+    public IEnumerable<float> GenerateEmbedding(string text)
     {
-        EmbeddingsOptions embeddingOptions = new EmbeddingsOptions("text-embedding-ada-002", new List<string> { text });
-
-        var returnValue = _openAIClient.GetEmbeddings(embeddingOptions);
-
+        var embeddingOptions = new EmbeddingsOptions(EmbeddingDeploymentName, new List<string> {text});
+        var returnValue = _openAiClient.GetEmbeddings(embeddingOptions);
         var embedding = returnValue.Value.Data.First().Embedding;
-        
+
         var embeddingList = embedding.Span.ToArray().ToList();
-        
         return embeddingList;
     }
 }

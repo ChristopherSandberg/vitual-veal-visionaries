@@ -15,16 +15,14 @@ public class CreatePostModel : PageModel
 
     public CreatePostModel(ApplicationDbContext context, ContentGenerator contentGenerator)
     {
-      _context = context;
-      _contentGenerator = contentGenerator;
+        _context = context;
+        _contentGenerator = contentGenerator;
     }
 
-    [BindProperty]
-    public BlogPost? BlogPost { get; set; }
+    [BindProperty] public BlogPost? BlogPost { get; set; }
 
     public void OnGet()
     {
-
     }
 
     public IActionResult OnGetModal()
@@ -48,10 +46,9 @@ public class CreatePostModel : PageModel
                 Author = BlogPost.Author,
                 CreatedAt = DateTime.Now
             };
-
             _context.BlogPosts.Add(post);
             _context.SaveChanges();
-            
+
             var embeddingDb = new Embedding()
             {
                 Id = post.Id,
@@ -59,10 +56,11 @@ public class CreatePostModel : PageModel
             };
             _context.Embeddings.Add(embeddingDb);
             _context.SaveChanges();
-            
-            Response.Htmx(h => {
+
+            Response.Htmx(h =>
+            {
                 h.Redirect("/post")
-                .WithTrigger("deleted");
+                    .WithTrigger("deleted");
             });
 
             return new EmptyResult();
