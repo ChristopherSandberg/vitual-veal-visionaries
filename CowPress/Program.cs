@@ -28,8 +28,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
 });
 
-// TODO add ai service
-
 builder.Services.AddSingleton(new OpenAIClient(
         new Uri("https://dev-week-2023.openai.azure.com/"),
         new AzureKeyCredential("7b68f68e0d7943fbb990eb83e4c02e1d")));
