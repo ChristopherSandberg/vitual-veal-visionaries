@@ -1,6 +1,5 @@
 using Azure;
 using Azure.AI.OpenAI;
-using static System.Environment;
 
 namespace CowPress.Pages.Post;
 

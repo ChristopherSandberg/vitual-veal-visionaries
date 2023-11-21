@@ -5,8 +5,7 @@
 
 <form method="post" asp-page-handler="UpdatePost">
     <input type="hidden" asp-for="BlogPost.Id" />
-    @* TODO AI UI *@
-    @* <div>
+    <div>
       <button 
           hx-get
           hx-page="EditPost"
@@ -16,7 +15,7 @@
           data-bs-toggle="modal" 
           data-bs-target="#modals-here"
           class="btn btn-primary">Generate blog post</button>
-    </div> *@
+    </div>
 
     <div class="form-group">
         <label asp-for="BlogPost.Title"></label>
