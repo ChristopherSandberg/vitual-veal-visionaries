@@ -26,7 +26,7 @@ public class ContentGenerator
             MaxTokens = 250
         };
 
-        Response<ChatCompletions> response = _openAIClient.GetChatCompletions(chatCompletionsOptions);
+        Response<ChatCompletions> response = await _openAIClient.GetChatCompletionsAsync(chatCompletionsOptions);
 
         var firstResponseMessage = response.Value.Choices.First().Message.Content;
         return firstResponseMessage;
